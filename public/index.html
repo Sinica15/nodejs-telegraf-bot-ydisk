@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Setting page</title>
+    <style>
+        body{
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #setting-app{
+            background-color: #d5e7ff;
+            height: 100vh;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        #setting-app > form{
+            position: relative;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            width: 330px;
+        }
+        #setting-app > form:after{
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            top: -100px;
+            right: 82px;
+            background-size: contain;
+            background-image: url(https://lh3.googleusercontent.com/Q9iL0ds-68WVPlf--dbhPmBkDTFAkW-FfV_m3GdQetrj8Oo_uCXRhbgNipOoTlmNwGI=s180-rw);
+        }
+        #setting-app > form:before{
+            content: '';
+            position: absolute;
+            width: 73px;
+            height: 73px;
+            top: -100px;
+            left: 65px;
+            background-size: contain;
+            background-image: url(https://upload.wikimedia.org/wikipedia/commons/5/5c/Telegram_Messenger.png);
+        }
+        #setting-app > form button{
+            width: 300px;
+            margin: 5px;
+            padding: 2px;
+        }
+        #setting-app form > div{
+            width: 300px;
+            display: flex;
+            justify-content: space-between;
+            margin: 5px;
+        }
+        #setting-app form > div input{
+            padding: 1px;
+        }
+
+        #loading {
+            display:    none;
+            position:   fixed;
+            z-index:    1000;
+            top:        0;
+            left:       0;
+            height:     100%;
+            width:      100%;
+            background: rgba( 255, 255, 255, .8 )
+            url('http://i.stack.imgur.com/FhHRx.gif')
+            50% 50%
+            no-repeat;
+        }
+    </style>
+</head>
+<body>
+    <div id="setting-app">
+        <div id="loading"><!-- Place at bottom of page --></div>
+        <form>
+            <div>
+                <label for="t-key">Bot token</label>
+                <input type="text" name="" id="t-key">
+            </div>
+            <div>
+                <label for="y-log">YDrive login</label>
+                <input type="text" name="" id="y-log">
+            </div>
+            <div>
+                <label for="y-pas">YDrive password</label>
+                <input type="password" name="" id="y-pas">
+            </div>
+            <button id="enter-btn">Enter params and start</button>
+        </form>
+    </div>
+    <script>
+        const id = id => document.getElementById(id);
+
+        let btn = id('enter-btn');
+
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+
+            id('loading').style.display = 'block';
+
+            // fetch(location.host, {
+            fetch('http://localhost:2280/', {
+                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, cors, *same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'same-origin', // include, *same-origin, omit
+                headers: {
+                    'Access-Control-Allow-Origin' : '*',
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                redirect: 'follow', // manual, *follow, error
+                referrer: 'no-referrer', // no-referrer, *client
+                body: JSON.stringify({
+                    'bot_token' : id('t-key').value,
+                    'y-login' : id('y-log').value,
+                    'y-password' : id('y-pas').value
+                }), // тип данных в body должен соответвовать значению заголовка "Content-Type"
+            })
+                .then(res => res.text())
+                .then(res => {
+                    id('loading').style.display = 'none';
+
+                    let resP = JSON.parse(res);
+                    if (resP.TelegOk) {
+                        id('t-key').style.backgroundColor = 'lightgreen';
+                    } else {
+                        id('t-key').style.backgroundColor = 'lightcoral';
+                    }
+                    if (resP.YDiskOk) {
+                        id('y-log').style.backgroundColor = 'lightgreen';
+                        id('y-pas').style.backgroundColor = 'lightgreen';
+                    } else {
+                        id('y-log').style.backgroundColor = 'lightcoral';
+                        id('y-pas').style.backgroundColor = 'lightcoral';
+                    }
+                });
+        })
+
+    </script>
+</body>
+</html>
