@@ -7,7 +7,7 @@ import {startBot} from "./botController";
 
 const YandexDisk = require('yandex-disk').YandexDisk;
 
-const PORT = 2280;
+const PORT = 8080;
 
 export let
     YLogin      = '',
