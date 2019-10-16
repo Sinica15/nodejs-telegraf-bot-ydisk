@@ -42,15 +42,20 @@ export function startSettPortal() {
                 () => {
                     YLogin = reqObj['y-login'];
                     YPassword = reqObj['y-password'];
+                    log('YDisk Ok');
                     resObj.YDiskOk = true;
                 },
-                () => resObj.YDiskOk = false
+                () => {
+                    log('YDisk problem');
+                    resObj.YDiskOk = false;
+                }
             )
             .then(() => {
                 checkTeleKey(reqObj['bot_token'])
                     .then(
                         () => {
                             BotKey = reqObj['bot_token'];
+                            log('bot token OK');
                             resObj.TelegOk = true;
                         },
                         () => resObj.TelegOk = false
@@ -60,7 +65,7 @@ export function startSettPortal() {
                         if (resObj.YDiskOk && resObj.TelegOk) {
                             fs.writeFileSync("data.json", JSON.stringify({YLogin, YPassword, BotKey}));
                             disk = new YandexDisk(YLogin, YPassword); // доступ по логину и паролю
-                            startBot(reqObj['bot_token'])
+                            startBot(reqObj['bot_token']);
                         }
                     });
             })

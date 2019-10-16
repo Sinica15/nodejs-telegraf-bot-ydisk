@@ -18,7 +18,7 @@ export function getFolder(folderName) {
                             folders.push(res[i].displayName);
                     }
 
-                    log(folders, 'd');
+                    log(`Folders list: ${folders}`, 'd');
 
                     if (folders.length > 1) {
                         let resp = 'There are several folders according to your request: ';
@@ -38,7 +38,7 @@ export function getFolder(folderName) {
             )
             .then(
                 res => resolve(res),
-                err => reject(err)
+                err => reject(`Get folder problem: ${err}`)
             )
             .catch(err => reject(err));
     });
