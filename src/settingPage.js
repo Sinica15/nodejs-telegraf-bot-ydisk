@@ -103,7 +103,7 @@ export const pageCode =
     '\n' +
     '            id(\'loading\').style.display = \'block\';\n' +
     '\n' +
-    '            fetch("http://" + location.host, {\n' +
+    '            fetch(location.protocol + "//" + location.host, {\n' +
     '            //fetch(\'http://localhost:2280/\', {\n' +
     '                method: \'POST\', // *GET, POST, PUT, DELETE, etc.\n' +
     '                mode: \'cors\', // no-cors, cors, *same-origin\n' +
