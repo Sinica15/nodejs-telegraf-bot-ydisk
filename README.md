@@ -1,15 +1,16 @@
-Task For Codex
+YDrive telegram bot
 ==============
 
 > Created using Telegraf.js and Express.js
 
-It is telegram bot which can sharing some folders from Yandex Drive
+It's telegram bot which can sharing some folders from Yandex Drive.
 
-It has web interface, from which you can start it
+It has web interface, from which you can start it.
 
-You should input bot token, YDrive login and YDrive password
+You should input bot token, YDrive login and YDrive password.
 
-![app in work](https://raw.githubusercontent.com/Sinica15/nodejs-telegraf-bot-ydisk/master/forRM/interface.png)
+![app interface](https://raw.githubusercontent.com/Sinica15/nodejs-telegraf-bot-ydisk/master/forRM/interface.png)
+
 ![app in work](https://raw.githubusercontent.com/Sinica15/nodejs-telegraf-bot-ydisk/master/forRM/telgram_chat.png)
 
 ## Build Setup
